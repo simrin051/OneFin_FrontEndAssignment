@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-------Navbar-------->
+
+    <nav class="navbar navbar-expand-lg navbar-light py-0">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarTogglerDemo01"
+        aria-controls="navbarTogglerDemo01"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <a class="navbar-brand" href="#"
+          ><img src="/assets/images/IMDB_Logo.svg.webp" class="imdb-logo"
+        /></a>
+
+        <div class="search-box pull-right ms-auto me-2">
+          <div class="form-outline">
+            <input
+              type="text"
+              class="searchInput"
+              (keyup)="onSearch($event.target.value)"
+            />
+
+            <button type="button" class="btn btn-primary">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!--------------------->
+    <!---Search Functionality -->
+    <!--
+<div class="search-box">
+  <label for="search">Search</label>
+  <input type="text" (keyup)="onSearch($event.target.value)" />
+</div>
+-->
+    <!-------------------------->
+
+    <div class="container">
+      <div
+        class="search-results"
+        infiniteScroll
+        [infiniteScrollDistance]="2"
+        [infiniteScrollThrottle]="50"
+        (scrolled)="onScroll()"
+      >
+        <div class="row pt-5 movie-container">
+          <div
+            class="col-md-4 p-2 card"
+            *ngFor="let movie of movies"
+            class="card shadow col-md-4"
+            style="width: 18rem; height: 18rem"
+          >
+            <div
+              class="card-body"
+              (click)="openModalWithClass(template, movie)"
+              data-target="#exampleModal"
+            >
+              <img
+                src="https://ui-avatars.com/api/?name={{ movie.title }}/64x64"
+                class="float-left rounded-circle movieAvatar"
+              />
+              <div class="message">
+                <h5 class="card-title">{{ movie.title }}</h5>
+
+                <p class="card-text">
+                  {{ movie.description | customDescription }}
+                </p>
+
+                <p class="card-text">{{ movie.genres }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="position: relative; margin: auto" class="mb-5">
+      <div class="col-md-12 p-5">
+        <ngx-spinner
+          bdOpacity="0.9"
+          bdColor=""
+          size="default"
+          color="#E1AD01"
+          type="ball-pulse-sync"
+          [fullScreen]="false"
+        >
+        </ngx-spinner>
+      </div>
+    </div>
+
+    <!-----------Modal -->
+
+    <ng-template #template>
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">
+          <img
+            src="https://ui-avatars.com/api/?name={{ movieModalTitle }}/64x64"
+            class="float-left movieAvatar"
+          />
+          {{ movieModalTitle }}
+        </h4>
+        <button
+          type="button"
+          class="close pull-right"
+          aria-label="Close"
+          (click)="modalRef.hide()"
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p style="white-space: pre-wrap">{{ movieModalDescription }}</p>
+        {{ movieGenres }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="modalRef.hide()">
+          Close
+        </button>
+      </div>
+    </ng-template>
+  </body>
+</html>

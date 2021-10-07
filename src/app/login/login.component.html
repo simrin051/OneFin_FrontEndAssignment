@@ -1,0 +1,57 @@
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<img src="/assets/images/IMDB_Logo.svg.webp" class="imdb-logo" />
+<div class="SignIn container-fluid col-md-6 mt-5">
+  <span class="title">LOGIN</span>
+  <form
+    class="justify-content-center"
+    [formGroup]="loginForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <div class="form-group">
+      <label>User Name</label>
+      <input
+        type="text"
+        formControlName="usernameInput"
+        class="form-control"
+        [ngClass]="{
+          'is-invalid': submitted && loginFormControl.usernameInput.errors
+        }"
+      />
+      <div
+        *ngIf="submitted && loginFormControl.usernameInput.errors"
+        class="invalid-feedback"
+      >
+        <div *ngIf="loginFormControl.usernameInput.errors.required">
+          Username is required
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Password</label>
+      <input
+        type="password"
+        formControlName="passwordInput"
+        class="form-control"
+        [ngClass]="{
+          'is-invalid': submitted && loginFormControl.passwordInput.errors
+        }"
+      />
+      <div
+        *ngIf="submitted && loginFormControl.passwordInput.errors"
+        class="invalid-feedback"
+      >
+        <div *ngIf="loginFormControl.passwordInput.errors.required">
+          Password is required
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="loginbtn btn-lg w-100" [disabled]="disablebtn">
+      Login
+    </button>
+  </form>
+  <div class="alert alert-danger" role="alert" *ngIf="errorDialog">
+    Credentials are incorrect!
+  </div>
+</div>
